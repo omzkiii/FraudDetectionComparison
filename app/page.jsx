@@ -9,7 +9,7 @@ export default function Home() {
 
   const handleTrain = (event) => {
     event.preventDefault();
-    router.push('/training');
+    router.push('/train');
     alert(textData)
   }
 
