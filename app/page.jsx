@@ -7,15 +7,22 @@ export default function Home() {
   const  [textData, setTextData] = useState('');
   const router = useRouter();
 
-  const handleSubmit = (event) => {
+  const handleTrain = (event) => {
     event.preventDefault();
-    router.push('/result');
+    router.push('/training');
     alert(textData)
   }
+
+  const handleDetect = (event) => {
+    event.preventDefault();
+    router.push('/detect');
+    alert(textData)
+  }
+
   
   return (
     <main className="flex justify-center items-center">
-      <Landing handleSubmit = {handleSubmit} setTextData = {setTextData}></Landing>
+      <Landing handleTrain = {handleTrain} setTextData = {setTextData} handleDetect= {handleDetect}></Landing>
     </main>
   );
 }
