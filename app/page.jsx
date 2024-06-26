@@ -7,15 +7,26 @@ export default function Home() {
   const  [textData, setTextData] = useState('');
   const router = useRouter();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    router.push('/result');
-    alert(textData)
+    const response = await fetch('http://localhost:5000/process', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ input: textData.toString() }),
+    });
+    console.log(JSON.stringify(textData));
+    const data = await response.json();   
+    setTextData(data);
+    console.log("RESPONSE: " + data['processed']);
+    alert(data['processed']);
+    setTextData(textData);
   }
-  
+
   return (
     <main className="flex justify-center items-center">
-      <Landing handleSubmit = {handleSubmit} setTextData = {setTextData}></Landing>
+      <Landing handleSubmit = {handleSubmit} setTextData = {setTextData} data = {textData}></Landing>
     </main>
   );
 }

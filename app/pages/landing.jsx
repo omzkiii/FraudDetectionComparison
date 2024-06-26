@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Landing({ handleSubmit, setTextData }) {
+function Landing({ handleSubmit, setTextData, data }) {
   return (
     <div>
       HELLO WORLD!
