@@ -43,5 +43,5 @@ def preprocess(datasets, index):
 
 
 if __name__ == '__main__':
-    eda(datasets, 0);
+    preprocess(datasets, 0);
 
