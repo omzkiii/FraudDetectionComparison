@@ -1,9 +1,10 @@
 import React from "react";
 import {Card, CardHeader, CardBody, Image} from "@nextui-org/react";
 
-export default function CardButtonDetect(handleTrain) {
+
+export default function CardButtonDetect({handleDetect}) {
   return (
-    <div onClick={handleTrain} style={{cursor: "pointer"}}>
+    <div onClick={handleDetect} style={{cursor: "pointer"}}>
     <Card className="py-4">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
         <p className="text-tiny uppercase font-bold">Daily Mix</p>

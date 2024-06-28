@@ -23,8 +23,8 @@ export default function Home() {
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-5xl font-bold mb-8">Welcome to Next.js Landing Page</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <CardButtonDetect/>
-        <CardButtonTraining/>
+        <CardButtonTraining  handleTrain={handleTrain}/>
+        <CardButtonDetect handleDetect={handleDetect} />
       </div>
     </div>
     </div>
