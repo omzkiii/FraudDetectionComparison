@@ -1,6 +1,23 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 
-function Testing({ handleSubmit, setTextData }) {
+function Testing() {
+  const [textData, setTextData] = useState('');
+  const handleSubmit = async (e) => {
+    const response = await fetch('http://localhost:5000/process', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ input: textData.toString() }),
+    });
+    console.log(JSON.stringify(textData));
+    const data = await response.json();   
+    setTextData(data);
+    console.log("RESPONSE: " + data['processed']);
+    alert(data['processed']);
+    setTextData(textData);
+  };
     return (
       <div>
         HELLO WORLD!

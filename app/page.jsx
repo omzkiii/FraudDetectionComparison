@@ -1,41 +1,37 @@
 "use client"
+import React from 'react'
 import { useRouter } from 'next/navigation';
-import { useState } from 'react'
-import Landing from './pages/landing'
+import Head from 'next/head'
 
 export default function Home() {
-  const  [textData, setTextData] = useState('');
   const router = useRouter();
 
   const handleTrain = (event) => {
     event.preventDefault();
     router.push('/train');
-    alert(textData)
   }
 
   const handleDetect = async (event) => {
     event.preventDefault();
     router.push('/detect');
-    alert(textData)
-    const response = await fetch('http://localhost:5000/process', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ input: textData.toString() }),
-    });
-    console.log(JSON.stringify(textData));
-    const data = await response.json();   
-    setTextData(data);
-    console.log("RESPONSE: " + data['processed']);
-    alert(data['processed']);
-    setTextData(textData);
   }
 
-
   return (
-    <main className="flex justify-center items-center">
-      <Landing handleTrain = {handleTrain} setTextData = {setTextData} data = {textData} handleDetect= {handleDetect}></Landing>
-    </main>
-  );
+    <div className="min-h-screen bg-white flex flex-col justify-center items-center">
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="text-5xl font-bold mb-8">Welcome to Next.js Landing Page</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <button onClick={handleTrain} className="bg-blue-500 hover:bg-blue-600 text-white py-4 px-6 rounded-lg text-center shadow-lg transition duration-300">
+            <h2 className="text-2xl font-bold mb-2">Train and Compare</h2>
+            <p className="text-lg">Click here to train and compare</p>
+          </button>
+
+          <button onClick={handleDetect} className="bg-green-500 hover:bg-green-600 text-white py-4 px-6 rounded-lg text-center shadow-lg transition duration-300">
+            <h2 className="text-2xl font-bold mb-2">Detect Fraud</h2>
+            <p className="text-lg">Click here to detect fraud</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
 }
