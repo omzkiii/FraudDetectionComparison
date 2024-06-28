@@ -7,8 +7,16 @@ export default function Home() {
   const  [textData, setTextData] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (event) => {
+  const handleTrain = (event) => {
     event.preventDefault();
+    router.push('/train');
+    alert(textData)
+  }
+
+  const handleDetect = async (event) => {
+    event.preventDefault();
+    router.push('/detect');
+    alert(textData)
     const response = await fetch('http://localhost:5000/process', {
       method: 'POST',
       headers: {
@@ -24,9 +32,10 @@ export default function Home() {
     setTextData(textData);
   }
 
+
   return (
     <main className="flex justify-center items-center">
-      <Landing handleSubmit = {handleSubmit} setTextData = {setTextData} data = {textData}></Landing>
+      <Landing handleTrain = {handleTrain} setTextData = {setTextData} data = {textData} handleDetect= {handleDetect}></Landing>
     </main>
   );
 }
