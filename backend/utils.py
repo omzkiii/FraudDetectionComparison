@@ -54,7 +54,6 @@ def preprocess(dataset):
 
     processed_df = df[['target','clean_text']]
     return processed_df
-    
 
 
 def get_training_data(dataset, test_size, random_state):
@@ -68,10 +67,25 @@ def get_training_data(dataset, test_size, random_state):
     return X_train_fin, X_test_fin, y_train, y_test
 
 
+def get_vectorizer(X_train):
+    vect = TfidfVectorizer()
+    vect.fit(X_train)
+    return vect
+
+
+def process_input(text, test_size=0.2, random_state=100):
+    stopwords_list = stopwords.words('english')
+    clean_text = ' '.join([word.lower() for word in text.split() if word not in stopwords_list and word.isalnum()])
+    X_train, _, _, _ = get_training_data(preprocess(dataset), test_size=test_size, random_state=random_state)
+    vect = get_vectorizer(X_train)
+    X_test = vect.transform(text)
+    print(X_test)
+    return text
 
 
 if __name__ == '__main__':
-    eda(dataset)
-    print("\n\n\n\n")
-    get_training_data(preprocess(dataset), 0.2, 21)
+    # eda(dataset)
+    # print("\n\n\n\n")
+    # get_training_data(preprocess(dataset), 0.2, 21)
+    process_input("Good Day!This Is MS.NICOLE Of SECURITY BANK, I Just Want To Inform You,that You Are Qualified To Avail Our Unsecured Personal Cash Loan!You Can Loan 100K Up To 5M,depending On Your Monthly Income.No Collateral,No Hidden Charges.2-3 Banking Days Processing!Pls.Reply Yes,your Name And Your Contact # To Expedite Your Loan. Thank you so much")
 
