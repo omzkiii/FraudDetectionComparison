@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-dataset = "../datasets/uci.csv"
+dataset = "./datasets/uci.csv"
 
 def eda(dataset):
     """
@@ -33,7 +33,7 @@ def eda(dataset):
 
 
 
-def preprocess(dataset):
+def preprocess(dataset = dataset):
     """
     Applies NLP preprocessing to dataset, extract and engineer features
 
@@ -56,7 +56,7 @@ def preprocess(dataset):
     return processed_df
 
 
-def get_training_data(dataset, test_size, random_state):
+def get_training_data(dataset, test_size = .3, random_state = 1):
     X_train_raw, X_test_raw, y_train, y_test = train_test_split(dataset['clean_text'], dataset['target'], 
                                                     test_size=test_size, random_state=random_state)
 
