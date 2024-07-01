@@ -5,6 +5,7 @@ import React from "react";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
 import {Button, ButtonGroup} from "@nextui-org/react";
 import {Textarea} from "@nextui-org/input";
+import LoadingButton from "./LoadingButton";
 
 export default function CardDetect() {
   return (
@@ -30,9 +31,9 @@ export default function CardDetect() {
           </div>
           <div></div>
         <div className="flex flex-wrap justify-center">
-          <Button radius="full" className=" bg-cyan-950 text-white shadow-lg" size="lg">
+          <LoadingButton radius="full" className=" bg-cyan-950 text-white shadow-lg" size="lg">
             SUBMIT
-          </Button>
+          </LoadingButton>
         </div>
 
       </CardBody>

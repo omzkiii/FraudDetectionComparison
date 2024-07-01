@@ -1,15 +1,21 @@
 "use client"
 import React, { useContext } from 'react';
-import { Card, CardHeader, CardBody, Divider, Button, Textarea } from '@nextui-org/react';
+import { Card, CardHeader, CardBody, Divider, Textarea } from '@nextui-org/react';
 import SelectSplit from './SelectSplit';
 import { SplitProvider, SplitContext } from './SplitContext';
-import PrecisionLineChart from './PrecisionLineChart';
+import BarChart from './BarChart';
+import LoadingButton from './LoadingButton';
 
 function CardContent() {
   const { selectedSplit, showComparisonCards, setShowComparisonCards } = useContext(SplitContext);
 
   const handleButtonClick = () => {
-    setShowComparisonCards(true);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        setShowComparisonCards(true);
+        resolve();
+      }, 3000); // Simulate a 3-second process
+    });
   };
 
   return (
@@ -36,23 +42,23 @@ function CardContent() {
             </div>
           )}
           <div className="flex flex-wrap justify-center">
-            <Button radius="full" className="bg-cyan-950 text-white shadow-lg" size="lg" onClick={handleButtonClick}>
+            <LoadingButton onClick={handleButtonClick} className="bg-cyan-950 text-white shadow-lg" size="lg">
               Train and Compare
-            </Button>
+            </LoadingButton>
           </div>
         </CardBody>
       </Card>
       {showComparisonCards && (
         <div className="mt-4 flex justify-center">
-        <Card className="w-[800px] h-full">
-          <CardHeader className="flex justify-center">
-            <p className="text-lg font-semibold">Model Precision Over Epochs</p>
-          </CardHeader>
-          <CardBody className="flex flex-col items-center">
-            <PrecisionLineChart />
-          </CardBody>
-        </Card>
-      </div>
+          <Card className="w-[800px] h-full">
+            <CardHeader className="flex justify-center">
+              <p className="text-lg font-semibold">Model Training Results</p>
+            </CardHeader>
+            <CardBody className="flex flex-col items-center">
+              <BarChart />
+            </CardBody>
+          </Card>
+        </div>
       )}
     </>
   );
