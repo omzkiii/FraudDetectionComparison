@@ -28,7 +28,13 @@ def neural_network():
     precision = precision_score(y_test, predict_test)
     f1 = f1_score(y_test, predict_test)
     
-    return
+    print("Accuracy: ", accuracy)
+    print("Recall: ", recall)
+    print("Precision: ", precision)
+    print("F1: ", f1)
 
+    return accuracy, recall, precision, f1
 
+if __name__ == "__main__":
+    neural_network()
 
