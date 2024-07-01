@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-dataset = "./datasets/uci.csv"
+dataset = "../datasets/uci.csv"
 
 def eda(dataset):
     """
@@ -56,7 +56,7 @@ def preprocess(dataset = dataset):
     return processed_df
 
 
-def get_training_data(dataset, test_size = .3, random_state = 1):
+def get_training_data(dataset, test_size = .3, random_state = 100):
     X_train_raw, X_test_raw, y_train, y_test = train_test_split(dataset['clean_text'], dataset['target'], 
                                                     test_size=test_size, random_state=random_state)
 
@@ -67,7 +67,10 @@ def get_training_data(dataset, test_size = .3, random_state = 1):
     return X_train_fin, X_test_fin, y_train, y_test
 
 
-def get_vectorizer(X_train):
+def get_vectorizer(dataset, test_size = .3, random_state = 100):
+    X_train, _, _, _ = train_test_split(dataset['clean_text'], dataset['target'], 
+                                                    test_size=test_size, random_state=random_state)
+
     vect = TfidfVectorizer()
     vect.fit(X_train)
     return vect
@@ -76,8 +79,7 @@ def get_vectorizer(X_train):
 def process_input(text, test_size=0.2, random_state=100):
     stopwords_list = stopwords.words('english')
     clean_text = ' '.join([word.lower() for word in text.split() if word not in stopwords_list and word.isalnum()])
-    X_train, _, _, _ = get_training_data(preprocess(dataset), test_size=test_size, random_state=random_state)
-    vect = get_vectorizer(X_train)
+    vect = get_vectorizer(preprocess(dataset), test_size=test_size, random_state=random_state)
     X_test = vect.transform(text)
     print(X_test)
     return text
