@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-dataset = "./datasets/uci.csv"
+dataset = "../datasets/uci.csv"
 
 def eda(dataset):
     """
@@ -50,14 +50,13 @@ def preprocess(dataset = dataset):
     # Removes punctuations and stopwords in the message
     stopwords_list = stopwords.words('english')
     df['clean_text'] = df['text'].apply(lambda text: ' '.join([word.lower() for word in text.split() 
-                                        if word not in stopwords_list and word.isalnum()]))
+                                        if word.lower() not in stopwords_list and word.isalnum()]))
 
     processed_df = df[['target','clean_text']]
     return processed_df
-    
 
 
-def get_training_data(dataset, test_size = .3, random_state = 1):
+def get_training_data(dataset, test_size = .3, random_state = 100):
     X_train_raw, X_test_raw, y_train, y_test = train_test_split(dataset['clean_text'], dataset['target'], 
                                                     test_size=test_size, random_state=random_state)
 
@@ -68,6 +67,14 @@ def get_training_data(dataset, test_size = .3, random_state = 1):
     return X_train_fin, X_test_fin, y_train, y_test
 
 
+def process_input(text):
+    # Preprocess text from user
+    stopwords_list = stopwords.words('english')
+    clean_text = ' '.join([word.lower() for word in text.split() if word.lower() not in stopwords_list and word.isalnum()])
+    data = {'clean_text': [clean_text]}
+    text_df = pd.DataFrame(data)
+    return text_df
+    
 
 
 if __name__ == '__main__':
