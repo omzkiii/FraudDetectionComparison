@@ -1,17 +1,36 @@
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from utils import preprocess, get_training_data, dataset
+from utils import preprocess, get_training_data, dataset, process_input
 from sklearn.metrics import classification_report, confusion_matrix, precision_score, recall_score, roc_curve, accuracy_score, f1_score
-from sklearn.model_selection import GridSearchCV, RandomizedSearchCV 
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 # TODO Get parameters from user input
+sample_input = r"Good Day!This Is MS.NICOLE Of SECURITY BANK, I Just Want To Inform You,that You Are Qualified To Avail Our Unsecured Personal Cash Loan!You Can Loan 100K Up To 5M,depending On Your Monthly Income.No Collateral,No Hidden Charges.2-3 Banking Days Processing!Pls.Reply Yes,your Name And Your Contact # To Expedite Your Loan. Thank you so much"
+sample_input2 = """JILI FC Free Gift 188 peso! Google ""boom188org"" and claim now er"""
+sample_input3 = """England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/̼1.20 POBOXox36504W45WQ 16+"""
+
 
 def ml_clf(X_train, y_train):
     model = RandomForestClassifier()
     model.fit(X_train, y_train)
     return model
 
+
+def detect_fraud_ml(text):
+    df = preprocess(dataset)
+    X = df['clean_text']
+    y = df['target']
+
+    vect = TfidfVectorizer()
+    X_vector =  vect.fit_transform(X)
+    ex_df = pd.DataFrame(X_vector.toarray())
+    model = ml_clf(X_vector, y)
+    
+    text_df = process_input(text)
+    text_vector = vect.transform(text_df['clean_text'])
+    result = model.predict(text_vector)
+    return result[0]
 
 
 def train_ml_model(def_threshold=True, test_size=0.2, random_state=100, threshold=0.3):
@@ -58,7 +77,8 @@ def train_ml_model(def_threshold=True, test_size=0.2, random_state=100, threshol
 
 
 if __name__ == '__main__':
-    train_ml_model(def_threshold=False, test_size=0.30, random_state=100, threshold=0.30)
+    # train_ml_model(def_threshold=False, test_size=0.30, random_state=100, threshold=0.30)
+    print(detect_fraud_ml(sample_input))
         
 
 

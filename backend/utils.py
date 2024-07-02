@@ -50,7 +50,7 @@ def preprocess(dataset = dataset):
     # Removes punctuations and stopwords in the message
     stopwords_list = stopwords.words('english')
     df['clean_text'] = df['text'].apply(lambda text: ' '.join([word.lower() for word in text.split() 
-                                        if word not in stopwords_list and word.isalnum()]))
+                                        if word.lower() not in stopwords_list and word.isalnum()]))
 
     processed_df = df[['target','clean_text']]
     return processed_df
@@ -67,22 +67,14 @@ def get_training_data(dataset, test_size = .3, random_state = 100):
     return X_train_fin, X_test_fin, y_train, y_test
 
 
-def get_vectorizer(dataset, test_size = .3, random_state = 100):
-    X_train, _, _, _ = train_test_split(dataset['clean_text'], dataset['target'], 
-                                                    test_size=test_size, random_state=random_state)
-
-    vect = TfidfVectorizer()
-    vect.fit(X_train)
-    return vect
-
-
-def process_input(text, test_size=0.2, random_state=100):
+def process_input(text):
+    # Preprocess text from user
     stopwords_list = stopwords.words('english')
-    clean_text = ' '.join([word.lower() for word in text.split() if word not in stopwords_list and word.isalnum()])
-    vect = get_vectorizer(preprocess(dataset), test_size=test_size, random_state=random_state)
-    X_test = vect.transform(text)
-    print(X_test)
-    return text
+    clean_text = ' '.join([word.lower() for word in text.split() if word.lower() not in stopwords_list and word.isalnum()])
+    data = {'clean_text': [clean_text]}
+    text_df = pd.DataFrame(data)
+    return text_df
+    
 
 
 if __name__ == '__main__':
