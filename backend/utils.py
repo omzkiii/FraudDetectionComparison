@@ -71,6 +71,7 @@ def get_training_data(dataset, test_size = .3, random_state = 1):
 
 
 if __name__ == '__main__':
+    print(stopwords.words("english"))
     eda(dataset)
     print("\n\n\n\n")
     get_training_data(preprocess(dataset), 0.2, 21)
