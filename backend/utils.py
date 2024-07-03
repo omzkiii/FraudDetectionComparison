@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-dataset = "../datasets/uci.csv"
+dataset = "./datasets/uci.csv"
 
 def eda(dataset):
     """
@@ -78,8 +78,8 @@ def process_input(text):
 
 
 if __name__ == '__main__':
-    # eda(dataset)
-    # print("\n\n\n\n")
-    # get_training_data(preprocess(dataset), 0.2, 21)
-    process_input("Good Day!This Is MS.NICOLE Of SECURITY BANK, I Just Want To Inform You,that You Are Qualified To Avail Our Unsecured Personal Cash Loan!You Can Loan 100K Up To 5M,depending On Your Monthly Income.No Collateral,No Hidden Charges.2-3 Banking Days Processing!Pls.Reply Yes,your Name And Your Contact # To Expedite Your Loan. Thank you so much")
+    print(stopwords.words("english"))
+    eda(dataset)
+    print("\n\n\n\n")
+    get_training_data(preprocess(dataset), 0.2, 21)
 
