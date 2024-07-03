@@ -15,9 +15,9 @@ def ml_clf(X_train, y_train, mode='detect', test_size=None, random_state=None, d
     fileName = None
     
     if(mode=="detect"):
-        fileName = 'ml_model_detect.pkl'
+        fileName = './backend/ml_model_detect.pkl'
     else:
-        fileName = f'ml_model_{str(test_size).split('.')[1]}_{random_state}_{def_threshold}.pkl'
+        fileName = f'./backend/ml_model_{str(test_size).split('.')[1]}_{random_state}_{def_threshold}.pkl'
 
     with open(fileName, 'wb') as file:
         pickle.dump(model, file)
@@ -35,7 +35,7 @@ def detect_fraud_ml(text):
     X_vector =  vect.fit_transform(X)
 
     try:
-        file = open('ml_model_detect.pkl', 'rb')
+        file = open('./backend/ml_model_detect.pkl', 'rb')
     except FileNotFoundError:
         model = ml_clf(X_vector, y)
     else:
@@ -53,7 +53,7 @@ def train_ml_model(def_threshold=True, test_size=0.2, random_state=100, threshol
 
     # check if pickled model already exist
     try:
-        file = open(f'ml_model_{str(test_size).split('.')[1]}_{random_state}_{def_threshold}.pkl', 'rb')
+        file = open(f'./backend/ml_model_{str(test_size).split('.')[1]}_{random_state}_{def_threshold}.pkl', 'rb')
     except FileNotFoundError:
         model = ml_clf(X_train, y_train, mode="compare", test_size=test_size, random_state=random_state, def_threshold=def_threshold)
     else:

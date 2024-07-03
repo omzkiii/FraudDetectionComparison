@@ -40,3 +40,4 @@ Session.vim
 /.venv
 /backend/__pycache__
 /backend/*.pkl
+*.pkl
