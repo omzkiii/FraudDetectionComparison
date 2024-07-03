@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-dataset = "../datasets/uci.csv"
+dataset = "./datasets/uci.csv"
 
 def eda(dataset):
     """
