@@ -1,33 +1,33 @@
 "use client"
-import React, { useState } from 'react'
+import { useContext } from 'react';
+import { BackendProvider, BackendContext } from '../context/BackendContext';
 import CardDetect from '../components/CardDetect'
+import CardResult from '../components/CardResult';
 
 
-function Testing() {
-  const [textData, setTextData] = useState('');
-  const handleSubmit = async (e) => {
-    const response = await fetch('http://localhost:5000/process', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ input: textData.toString() }),
-    });
-    console.log(JSON.stringify(textData));
-    const data = await response.json();   
-    setTextData(data);
-    console.log("RESPONSE: " + data['processed']);
-    alert(data['processed']);
-    setTextData(textData);
-  };
+function DetectContent() {
+  const { showDetectResult, detectRes } = useContext(BackendContext);
+
     return (
       <>
         <div className="min-h-screen bg-white flex flex-col justify-center items-center">
-        <h1 className="text-5xl font-bold mb-8">Fraud Detection</h1>
-        <CardDetect />
+          <div className="flex flex-col w-full p-4 justify-center items-center">
+            <h1 className="text-5xl font-bold mb-8">DETECT FRAUD</h1>
+          </div>
+          <div className="flex flex-wrap gap-10 justify-center items-center">
+            <CardDetect className="flex-1"/>
+            {showDetectResult && (<CardResult result={detectRes} className='flex-1'/>)}
+          </div>
+
         </div>
     </>
     )
   }
   
-  export default Testing
+  export default function Detect() {
+    return (
+      <BackendProvider>
+        <DetectContent />
+      </BackendProvider>
+    );
+  }

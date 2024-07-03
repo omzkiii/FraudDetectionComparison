@@ -38,3 +38,5 @@ next-env.d.ts
 Session.vim
 /env
 /.venv
+/backend/__pycache__
+/backend/*.pkl

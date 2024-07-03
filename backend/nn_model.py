@@ -7,11 +7,18 @@ import pickle
 
 import utils
 
-def nn_clf(X_train, y_train):
+def nn_clf(X_train, y_train, mode='detect', test_size=None, random_state=None):
     mlp = MLPClassifier(hidden_layer_sizes=(1000,), activation='logistic', solver='adam', max_iter=500)
     mlp.fit(X_train, y_train)
 
-    with open('nn_model_detect.pkl', 'wb') as file:
+    fileName = None
+    
+    if(mode=="detect"):
+        fileName = 'nn_model_detect.pkl'
+    else:
+        fileName = f'nn_model_{str(test_size).split('.')[1]}_{random_state}.pkl'
+
+    with open(fileName, 'wb') as file:
         pickle.dump(mlp, file)
 
     return mlp
@@ -19,27 +26,33 @@ def nn_clf(X_train, y_train):
 
 def neural_network(test_size=0.2, random_state=100): 
     X_train, X_test, y_train, y_test = utils.get_training_data(utils.preprocess(), test_size=test_size, random_state=random_state)
-    mlp = nn_clf(X_train, y_train)
+
+    # check if pickled model already exist
+    try:
+        file = open(f'nn_model_{str(test_size).split('.')[1]}_{random_state}.pkl', 'rb')
+    except FileNotFoundError:
+        mlp = nn_clf(X_train, y_train, mode="compare", test_size=test_size, random_state=random_state)
+    else:
+        with file:
+            mlp = pickle.load(file)
+
     predict_train = mlp.predict(X_train)
     predict_test = mlp.predict(X_test)
-
-    # cm_train = confusion_matrix(y_train, predict_train)
-    # cr_train = classification_report(y_train, predict_train)
-
-    # cm_test = confusion_matrix(y_test, predict_test)
-    # cr_test = classification_report(y_test, predict_test)
 
     accuracy = accuracy_score(y_test, predict_test)
     recall = recall_score(y_test, predict_test)
     precision = precision_score(y_test, predict_test)
     f1 = f1_score(y_test, predict_test)
-    
+
+    print(f'Result for Test Size = {test_size} and Random State = {random_state}')
     print("Accuracy: ", accuracy)
     print("Recall: ", recall)
     print("Precision: ", precision)
     print("F1: ", f1)
 
-    return accuracy, recall, precision, f1
+    result = [accuracy, float(precision), float(recall), float(f1)]
+
+    return result
 
 
 
@@ -50,7 +63,15 @@ def detect_fraud_nn(text):
 
     vect = TfidfVectorizer()
     X_vector =  vect.fit_transform(X)
-    model = nn_clf(X_vector, y)
+
+    try:
+        file = open('nn_model_detect.pkl', 'rb')
+    except FileNotFoundError:
+        model = nn_clf(X_vector, y)
+    else:
+        with file:
+            model = pickle.load(file)
+    
 
     text_df = utils.process_input(text)
     text_vector = vect.transform(text_df['clean_text'])
@@ -60,12 +81,13 @@ def detect_fraud_nn(text):
 
 
 if __name__ == "__main__":
-    # neural_network()
+    
+    neural_network()
 
-    sample_input = r"Good Day!This Is MS.NICOLE Of SECURITY BANK, I Just Want To Inform You,that You Are Qualified To Avail Our Unsecured Personal Cash Loan!You Can Loan 100K Up To 5M,depending On Your Monthly Income.No Collateral,No Hidden Charges.2-3 Banking Days Processing!Pls.Reply Yes,your Name And Your Contact # To Expedite Your Loan. Thank you so much"
-    sample_input2 = """JILI FC Free Gift 188 peso! Google ""boom188org"" and claim now er"""
-    sample_input3 = """England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/̼1.20 POBOXox36504W45WQ 16+"""
+    # sample_input = """Get 100% DEPOSIT BONUS on Jackpot City! Register now and get FREE MONEY! jackpotcityph10.com"""
+    # sample_input2 = """JILI FC Free Gift 188 peso! Google ""boom188org"" and claim now er"""
+    # sample_input3 = """England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/̼1.20 POBOXox36504W45WQ 16+"""
 
-    print(f"Input 2: {detect_fraud_nn(sample_input2)}")
-    print(f"Input 3: {detect_fraud_nn(sample_input3)}")
+    # print(f"Input 2: {detect_fraud_nn(sample_input2)}")
+    # print(f"Input 3: {detect_fraud_nn(sample_input3)}")
 
