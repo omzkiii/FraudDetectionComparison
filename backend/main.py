@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ml_model import train_ml_model, detect_fraud_ml
 from nn_model import neural_network, detect_fraud_nn
+from rb_model import get_stats, rule_based
 
 app = Flask(__name__)
 CORS(app)
@@ -24,8 +25,7 @@ def train():
     split = data['split']
     state = data['state']
 
-    #TODO update training for rule-based
-    rb_result = [0.0, 0.0, 0.0, 0.0] 
+    rb_result =  get_stats()
     ml_result = train_ml_model(test_size=split, random_state=state, def_threshold=False)
     nn_result = neural_network(test_size=split, random_state=state)
 
@@ -41,8 +41,7 @@ def detect():
     data = request.json
     text = data['text']
 
-    #TODO update detect for rule-based
-    rb_result = 'spam'
+    rb_result = 'spam' if rule_based(text) else 'not spam'
     ml_result = 'spam' if detect_fraud_ml(text) else 'not spam'
     nn_result = 'spam' if detect_fraud_nn(text) else 'not spam'
 

@@ -44,8 +44,12 @@ def detect_fraud_ml(text):
     
     text_df = process_input(text)
     text_vector = vect.transform(text_df['clean_text'])
-    result = model.predict(text_vector)
-    return result[0]
+    
+    y_prob = model.predict_proba(text_vector)
+
+    result = 1 if y_prob[0][1] >=0.30 else 0
+
+    return result
 
 
 def train_ml_model(def_threshold=True, test_size=0.2, random_state=100, threshold=0.3):
@@ -103,15 +107,15 @@ def train_ml_model(def_threshold=True, test_size=0.2, random_state=100, threshol
 
 
 if __name__ == '__main__':
-    print(train_ml_model(def_threshold=False))
+    # print(train_ml_model(def_threshold=False))
 
-    # sample_input = """Join RichPH and become the king of the dynasty and win 200% jackpot Explore promotions and win big on https://risu.io/DBdnj  slot machine 77777P"""
-    # sample_input2 = """JILI FC Free Gift 188 peso! Google ""boom188org"" and claim now er"""
-    # sample_input3 = """England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/̼1.20 POBOXox36504W45WQ 16+"""
+    sample_input = """Join RichPH and become the king of the dynasty and win 200% jackpot Explore promotions and win big on https://risu.io/DBdnj  slot machine 77777P"""
+    sample_input2 = """JILI FC Free Gift 188 peso! Google ""boom188org"" and claim now er"""
+    sample_input3 = """England v Macedonia - dont miss the goals/team news. Txt ur national team to 87077 eg ENGLAND to 87077 Try:WALES, SCOTLAND 4txt/̼1.20 POBOXox36504W45WQ 16+"""
 
-    # print(f"Input 1: {detect_fraud_ml(sample_input)}")
-    # print(f"Input 2: {detect_fraud_ml(sample_input2)}")
-    # print(f"Input 3: {detect_fraud_ml(sample_input3)}")
+    print(f"Input 1: {detect_fraud_ml(sample_input)}")
+    print(f"Input 2: {detect_fraud_ml(sample_input2)}")
+    print(f"Input 3: {detect_fraud_ml(sample_input3)}")
         
 
 

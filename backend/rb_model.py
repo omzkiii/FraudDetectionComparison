@@ -110,12 +110,14 @@ def get_stats():
     recall = recall_score(actual, predict)
     f1 = f1_score(actual, predict)
 
-
     print(f"Accurary: {accuracy}")
     print(f"Precision: {precision}")
     print(f"Recall: {recall}")
     print(f"F-1 score: {f1}")
     print(f"=============================")
+
+    result = [accuracy, float(precision), float(recall), float(f1)]
+    return result
 
 
 
@@ -124,9 +126,9 @@ def rule_based(text):
     result_df = overall_score(input_df)
 
     if (result_df['result'][0] == 0):
-        print("HAM!!!!!!!!!!!!!!!!")
+        return 0;
     else:
-        print("SPAM!!!!!!!!!!!!!!!!!!!")
+        return 1;
     
 
     

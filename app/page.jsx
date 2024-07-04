@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center items-center">
       <div className="flex flex-col items-center justify-center">
-        <h1 className="text-5xl font-bold mb-8">Welcome to Next.js Landing Page</h1>
+        <h1 className="text-5xl font-bold mb-8">Fraud Detection Using AI</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <CardButtonTraining  handleTrain={handleTrain}/>
         <CardButtonDetect handleDetect={handleDetect} />

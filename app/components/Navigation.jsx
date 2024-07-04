@@ -7,7 +7,7 @@ export default function Navigation() {
   return (
     <Navbar>
       <NavbarBrand>
-        <p className="font-bold text-inherit">Spam Classifier</p>
+        <p className="font-bold text-inherit">Fraud Detection</p>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="end">
         <NavbarItem>
