@@ -1,35 +1,17 @@
 "use client"
 import { Card, CardHeader, CardBody, Divider, Textarea } from '@nextui-org/react';
 
-export default function CardAbout() {
+export default function CardAboutDetect() {
 
     return (
         <Card className="w-[800px] z-0 mt-4">
         <CardHeader className="flex justify-center items-center">
           <div className="text-center">
-            <p className="text-xl">Training Process</p>
+            <p className="text-xl">Parameters used for each algorithm</p>
           </div>
         </CardHeader>
         <Divider />
         <CardBody>
-
-          <div className="flex flex-wrap p-4 mt-4 border rounded-lg border-slate-600 border-1">
-            <p className='text-lg font-medium'>Technology Used</p>
-            <Divider />
-            <p className='mt-2'> In this project, we developed a spam classifier model leveraging Python and its powerful libraries, NLTK 
-              (Natural Language Toolkit) and Scikit-learn. The primary goal was to build machine learning models capable of categorizing text documents 
-              into spam or not spam with high accuracy.</p>
-          
-          </div>
-
-          <div className="flex flex-wrap p-4 mt-4 border rounded-lg border-slate-600 border-1">
-            <p className='text-lg font-medium'>Text Preprocessing</p>
-            <Divider />
-            <p className='mt-2'> Before feeding the text data into the machine learning model, we first removed the stopwords and punctuations. We did not use
-              lemmatization or stemming since there might be words that are usually used for texting that are not in their proper form which may contribute
-              to their classification as spam or not spam. </p>
-          
-          </div>
 
           <div className="flex flex-wrap p-4 mt-4 border rounded-lg border-slate-600 border-1">
             <p className='text-lg font-medium'>Rule-Based Algorithm</p>
