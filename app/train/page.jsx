@@ -11,7 +11,7 @@ function train() {
           <h1 className="text-5xl font-bold mb-8">TRAIN AND COMPARE</h1>
         </div>
 
-        <div className="flex flex-wrap gap-10 justify-center items-center">
+        <div className="flex flex-row gap-10 justify-center items-center">
           <CardAbout className="flex-1"/>
 
           <div className="flex-1 flex flex-col justify-center items-center">
