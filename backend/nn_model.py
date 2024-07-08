@@ -16,7 +16,7 @@ def nn_clf(X_train, y_train, mode='detect', test_size=None, random_state=None):
     if(mode=="detect"):
         fileName = './backend/nn_model_detect.pkl'
     else:
-        fileName = f'./backend/nn_model_{str(test_size).split('.')[1]}_{random_state}.pkl'
+        fileName = f'./backend/nn_model_{str(test_size).split(".")[1]}_{random_state}.pkl'
 
     with open(fileName, 'wb') as file:
         pickle.dump(mlp, file)
@@ -29,7 +29,7 @@ def neural_network(test_size=0.2, random_state=100):
 
     # check if pickled model already exist
     try:
-        file = open(f'./backend/nn_model_{str(test_size).split('.')[1]}_{random_state}.pkl', 'rb')
+        file = open(f'./backend/nn_model_{str(test_size).split(".")[1]}_{random_state}.pkl', 'rb')
     except FileNotFoundError:
         mlp = nn_clf(X_train, y_train, mode="compare", test_size=test_size, random_state=random_state)
     else:

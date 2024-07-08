@@ -19,7 +19,7 @@ function DetectContent() {
             <CardDetect className="flex-1"/>
             {showDetectResult && (<CardResult result={detectRes} className='flex-1'/>)}
           </div>
-          <div className="flex flex-wrap gap-10 justify-center items-center mt-4">
+          <div className="flex flex-wrap gap-10 justify-center items-center mt-4">  
             <CardAboutDetect className="flex-1"/>
           </div>
 
