@@ -60,7 +60,7 @@ python ./backend/main.py
 
 `windows system`
 ```bash
-python ./backend/main.py
+python .\backend\main.py
 ```
 
 ## Frontend Setup
