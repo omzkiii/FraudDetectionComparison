@@ -8,7 +8,7 @@ git clone git@github.com:omzkiii/FraudDetectionComparison.git
 
 Change directory into the root file of the webapp:
 
-`linux/macos system`
+`linux/macOS system`
 ```bash
 cd ./fraud-detection-comparison/
 ```
@@ -28,7 +28,7 @@ python -m venv env
 
 Next, activate the environment: 
 
-`linux/macos system`
+`linux/macOS system`
 ```bash
 source ./env/bin/activate
 ```
@@ -53,7 +53,7 @@ pip -v
 
 Finally, run the backend by executing:
 
-`linux/macos system`
+`linux/macOS system`
 ```bash
 python ./backend/main.py
 ```
