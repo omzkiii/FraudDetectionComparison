@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SMS Fraud Detection Comparison
 
-## Getting Started
+Download the webapp by cloning it in the github repository:
 
-First, run the development server:
+```bash
+git clone git@github.com:omzkiii/FraudDetectionComparison.git
+```
+
+Change directory into the root file of the webapp:
+
+`linux/macos system`
+```bash
+cd ./fraud-detection-comparison/
+```
+
+`windows system`
+```bash
+cd .\fraud-detection-comparison\
+```
+
+## Backend Setup
+
+First, initialize a virtual environment first using:
+
+```bash
+python -m venv env
+```
+
+Next, activate the environment: 
+
+`linux/macos system`
+```bash
+source ./env/bin/activate
+```
+
+`windows system`
+```bash
+.\env\Script\activate
+```
+
+Then, install the required python packages: 
+
+```bash
+pip install -r requirements.txt
+```
+
+> [!NOTE]
+> Make sure that the system have pip by executing:
+
+```bash
+pip -v
+```
+
+Finally, run the backend by executing:
+
+`linux/macos system`
+```bash
+python ./backend/main.py
+```
+
+`windows system`
+```bash
+python ./backend/main.py
+```
+
+## Frontend Setup
+
+First, install the required node packages:
+
+```bash
+npm install
+```
+
+> [!NOTE]
+> Make sure that the system has NodeJS installed and any [NodeJS](https://nodejs.org/en/download/package-manager) package manager e.g. [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) 
+
+Then run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with browser to see the project.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+> [!NOTE]
+> When running for the first time with a given parameter, the backend will train with the given dataset first so the process may take a minute or more.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
