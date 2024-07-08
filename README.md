@@ -38,17 +38,17 @@ source ./env/bin/activate
 .\env\Script\activate
 ```
 
-Then, install the required python packages: 
-
-```bash
-pip install -r requirements.txt
-```
-
 > [!NOTE]
 > Make sure that the system have pip by executing:
 
 ```bash
 pip -v
+```
+
+Then, install the required python packages: 
+
+```bash
+pip install -r requirements.txt
 ```
 
 Finally, run the backend by executing:
